@@ -1,10 +1,11 @@
-package org.example.masalfood.Business;
+package org.example.masalfood.Business.concretes;
 
 import lombok.AllArgsConstructor;
+import org.example.masalfood.Business.abstracts.ProductService;
 import org.example.masalfood.DataAccess.ProductDao;
 import org.example.masalfood.Entities.Product;
-import org.example.masalfood.Result.DataResult;
-import org.example.masalfood.Result.SuccessDataResult;
+import org.example.masalfood.Business.Dto.Responses.Result.DataResult;
+import org.example.masalfood.Business.Dto.Responses.Result.SuccessDataResult;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;

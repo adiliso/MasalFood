@@ -1,8 +1,6 @@
-package org.example.masalfood.Result;
+package org.example.masalfood.Business.Dto.Responses.Result;
 
 import lombok.Getter;
-
-import java.util.List;
 
 public class DataResult<T> extends Result {
     @Getter

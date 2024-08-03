@@ -1,4 +1,4 @@
-package org.example.masalfood.Result;
+package org.example.masalfood.Business.Dto.Responses.Result;
 
 public class SuccessDataResult<T> extends DataResult<T>{
     public SuccessDataResult(String message, T data) {
