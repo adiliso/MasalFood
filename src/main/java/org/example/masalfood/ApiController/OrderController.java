@@ -18,11 +18,14 @@ import java.util.Map;
 public class OrderController {
     @Autowired
     private OrderService orderService;
-
     @PostMapping("/add-order")
-    public Result addOrder(@Validated @RequestBody RequestCustomer requestCustomer, @RequestParam String productId,
+    public HttpStatus addOrder(@Validated @RequestBody RequestCustomer requestCustomer, @RequestParam String productId,
                            @RequestParam int quantity) {
-        return orderService.addOrder(requestCustomer, productId, quantity);
+        Result result = orderService.addOrder(requestCustomer, productId, quantity);
+        if(!result.isSuccess()){
+            return HttpStatus.NOT_FOUND;
+        }
+        return HttpStatus.OK;
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
