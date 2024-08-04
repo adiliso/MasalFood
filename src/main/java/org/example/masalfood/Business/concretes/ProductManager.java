@@ -4,8 +4,8 @@ import lombok.AllArgsConstructor;
 import org.example.masalfood.Business.abstracts.ProductService;
 import org.example.masalfood.DataAccess.ProductDao;
 import org.example.masalfood.Entities.Product;
-import org.example.masalfood.Business.Dto.Responses.Result.DataResult;
-import org.example.masalfood.Business.Dto.Responses.Result.SuccessDataResult;
+import org.example.masalfood.Business.models.Responses.Result.DataResult;
+import org.example.masalfood.Business.models.Responses.Result.SuccessDataResult;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;

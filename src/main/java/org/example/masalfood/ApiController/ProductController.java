@@ -3,7 +3,7 @@ package org.example.masalfood.ApiController;
 import lombok.AllArgsConstructor;
 import org.example.masalfood.Business.abstracts.ProductService;
 import org.example.masalfood.Entities.Product;
-import org.example.masalfood.Business.Dto.Responses.Result.DataResult;
+import org.example.masalfood.Business.models.Responses.Result.DataResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;

@@ -1,4 +1,4 @@
-package org.example.masalfood.Business.Dto.Requests;
+package org.example.masalfood.Business.models.Requests;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

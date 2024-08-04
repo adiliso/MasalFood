@@ -1,11 +1,11 @@
 package org.example.masalfood.ApiController;
 
 import lombok.AllArgsConstructor;
-import org.example.masalfood.Business.Dto.Requests.RequestCustomer;
+import org.example.masalfood.Business.models.Requests.RequestCustomer;
 import org.example.masalfood.Business.abstracts.CustomerService;
 import org.example.masalfood.Entities.Customer;
-import org.example.masalfood.Business.Dto.Responses.Result.Result;
-import org.example.masalfood.Business.Dto.Responses.Result.SuccessResult;
+import org.example.masalfood.Business.models.Responses.Result.Result;
+import org.example.masalfood.Business.models.Responses.Result.SuccessResult;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

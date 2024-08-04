@@ -1,10 +1,10 @@
 package org.example.masalfood.Business.concretes;
 
 import lombok.AllArgsConstructor;
-import org.example.masalfood.Business.Dto.Requests.RequestOrderItem;
-import org.example.masalfood.Business.Dto.Responses.Result.ErrorResult;
-import org.example.masalfood.Business.Dto.Responses.Result.Result;
-import org.example.masalfood.Business.Dto.Responses.Result.SuccessResult;
+import org.example.masalfood.Business.models.Requests.RequestOrderItem;
+import org.example.masalfood.Business.models.Responses.Result.ErrorResult;
+import org.example.masalfood.Business.models.Responses.Result.Result;
+import org.example.masalfood.Business.models.Responses.Result.SuccessResult;
 import org.example.masalfood.Business.abstracts.OrderItemService;
 import org.example.masalfood.DataAccess.CustomerDao;
 import org.example.masalfood.DataAccess.OrderDao;
@@ -15,9 +15,7 @@ import org.example.masalfood.Entities.OrderItem;
 import org.example.masalfood.Entities.Product;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 @AllArgsConstructor
@@ -42,9 +40,9 @@ public class OrderItemManager implements OrderItemService {
         orderItem.setQuantity(requestOrderItem.getQuantity());
         orderItemDao.save(orderItem);
         Order order1 = order.get();
-        List<OrderItem> list = new ArrayList<>();;
-        list.add(orderItem);
-        order1.setOrderItems(list);
+        Set<OrderItem> set = new HashSet<>();
+        set.add(orderItem);
+        order1.setOrderItems(set);
         orderDao.save(order1);
         return new SuccessResult("Order item added");
     }

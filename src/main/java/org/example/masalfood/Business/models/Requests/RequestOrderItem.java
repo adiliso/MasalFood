@@ -1,10 +1,8 @@
-package org.example.masalfood.Business.Dto.Requests;
+package org.example.masalfood.Business.models.Requests;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.example.masalfood.Entities.Order;
-import org.example.masalfood.Entities.Product;
 
 @Data
 @AllArgsConstructor
