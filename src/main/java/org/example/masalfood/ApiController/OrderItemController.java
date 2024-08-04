@@ -1,7 +1,7 @@
 package org.example.masalfood.ApiController;
 
-import org.example.masalfood.Business.Dto.Requests.RequestOrderItem;
-import org.example.masalfood.Business.Dto.Responses.Result.Result;
+import org.example.masalfood.Business.models.Requests.RequestOrderItem;
+import org.example.masalfood.Business.models.Responses.Result.Result;
 import org.example.masalfood.Business.abstracts.OrderItemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;

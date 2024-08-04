@@ -1,9 +1,9 @@
 package org.example.masalfood.Business.concretes;
 
-import org.example.masalfood.Business.Dto.Requests.RequestOrder;
-import org.example.masalfood.Business.Dto.Responses.ResponseOrder;
-import org.example.masalfood.Business.Dto.Responses.ResponseOrderItem;
-import org.example.masalfood.Business.Dto.Responses.Result.*;
+import org.example.masalfood.Business.models.Requests.RequestOrder;
+import org.example.masalfood.Business.models.Responses.ResponseOrder;
+import org.example.masalfood.Business.models.Responses.ResponseOrderItem;
+import org.example.masalfood.Business.models.Responses.Result.*;
 import org.example.masalfood.Business.abstracts.OrderService;
 import org.example.masalfood.DataAccess.CustomerDao;
 import org.example.masalfood.DataAccess.OrderDao;
@@ -14,10 +14,7 @@ import org.example.masalfood.Entities.OrderItem;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 
 @Service
 public class OrderManager implements OrderService {
@@ -31,7 +28,7 @@ public class OrderManager implements OrderService {
     public Result create(RequestOrder requestOrder) {
         Order order = new Order();
         Optional<Customer> customer = customerDao.findById(requestOrder.getCustomer_id());
-        if(!customer.isPresent()) {
+        if(customer.isEmpty()) {
             return new ErrorResult("Customer not found");
         }
         order.setCustomer(customer.get());
@@ -40,14 +37,17 @@ public class OrderManager implements OrderService {
     }
 
     @Override
-    public DataResult<List<ResponseOrder>> showAllOrders() {
-        List<ResponseOrder> responseOrders = new ArrayList<>();
+    public DataResult<Set<ResponseOrder>> showAllOrders() {
+        Set<ResponseOrder> responseOrders = new HashSet<>();
         List<Order> orders = orderDao.findAll();
+        if(orders.isEmpty()) {
+            return new ErrorDataResult<>("No orders found");
+        }
         for(Order order : orders) {
             ResponseOrder responseOrder = new ResponseOrder();
             responseOrder.setOrder_id(order.getId());
             responseOrder.setCustomer(order.getCustomer());
-            List<ResponseOrderItem> responseOrderItems = new ArrayList<>();
+            Set<ResponseOrderItem> responseOrderItems = new HashSet<>();
             assert order.getOrderItems() != null;
             for(OrderItem orderItem : order.getOrderItems()) {
                 ResponseOrderItem responseOrderItem = new ResponseOrderItem();

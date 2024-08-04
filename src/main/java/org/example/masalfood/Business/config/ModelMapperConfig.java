@@ -1,4 +1,4 @@
-package org.example.masalfood.Business.Config;
+package org.example.masalfood.Business.config;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;

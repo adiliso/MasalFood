@@ -1,4 +1,4 @@
-package org.example.masalfood.Business.Dto.Responses.Result;
+package org.example.masalfood.Business.models.Responses.Result;
 
 public class Result {
     private boolean success;

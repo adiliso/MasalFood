@@ -1,8 +1,8 @@
 package org.example.masalfood.Business.concretes;
 
 import lombok.AllArgsConstructor;
-import org.example.masalfood.Business.Dto.Requests.RequestCustomer;
-import org.example.masalfood.Business.Dto.Responses.Result.*;
+import org.example.masalfood.Business.models.Requests.RequestCustomer;
+import org.example.masalfood.Business.models.Responses.Result.*;
 import org.example.masalfood.Business.abstracts.CustomerService;
 import org.example.masalfood.DataAccess.CustomerDao;
 import org.example.masalfood.Entities.Customer;
