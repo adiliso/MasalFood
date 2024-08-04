@@ -10,7 +10,7 @@ import org.example.masalfood.Entities.Product;
 @AllArgsConstructor
 @NoArgsConstructor
 public class RequestOrderItem {
-    private int customerId;
+    private int orderId;
     private String productId;
     private int quantity;
 }
