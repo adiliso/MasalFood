@@ -6,5 +6,4 @@ import org.example.masalfood.Business.models.Responses.Result.Result;
 
 public interface CustomerService {
     Result add (Customer customer);
-    DataResult<Customer> getById(int id);
 }

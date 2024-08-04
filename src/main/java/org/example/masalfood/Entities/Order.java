@@ -20,12 +20,12 @@ public class Order {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     @ManyToOne
-    @JoinColumn(name = "customer_id", nullable = false)
+    @JoinColumn(name = "customer_id")
     private Customer customer;
-    @Column(name = "order_items")
-    @Nullable
-    @OneToMany(mappedBy = "order")
-    private Set<OrderItem> orderItems;
+    @ManyToOne
+    @JoinColumn(name = "product_id")
+    private Product product;
+    private int quantity;
     @Column(name = "created_at")
     private Instant createdAt = Instant.now();
 

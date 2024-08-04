@@ -1,8 +1,12 @@
 package org.example.masalfood.ApiController;
 
-import org.example.masalfood.Business.models.Requests.RequestCustomer;
+import lombok.AllArgsConstructor;
+import org.example.masalfood.Business.models.Requests.RequestContactUs;
 import org.example.masalfood.Business.models.Responses.Result.Result;
-import org.example.masalfood.Business.abstracts.OrderService;
+import org.example.masalfood.Business.models.Responses.Result.SuccessResult;
+import org.example.masalfood.DataAccess.ContactUsDao;
+import org.example.masalfood.Entities.ContactUs;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.FieldError;
@@ -14,15 +18,19 @@ import java.util.HashMap;
 import java.util.Map;
 
 @RestController
-@RequestMapping("api/orders")
-public class OrderController {
+@RequestMapping("/api/contact-us")
+@AllArgsConstructor
+public class ContactUsController {
     @Autowired
-    private OrderService orderService;
+    private ContactUsDao contactUsDao;
+    @Autowired
+    ModelMapper modelMapper;
 
-    @PostMapping("/add-order")
-    public Result addOrder(@Validated @RequestBody RequestCustomer requestCustomer, @RequestParam String productId,
-                           @RequestParam int quantity) {
-        return orderService.addOrder(requestCustomer, productId, quantity);
+    @PostMapping("/add")
+    public Result add(@Validated @RequestBody RequestContactUs requestContactUs) {
+        ContactUs contactUs = modelMapper.map(requestContactUs, ContactUs.class);
+        contactUsDao.save(contactUs);
+        return new SuccessResult("Contact added successfully");
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)

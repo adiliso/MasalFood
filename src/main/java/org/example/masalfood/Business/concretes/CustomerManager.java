@@ -23,15 +23,6 @@ public class CustomerManager implements CustomerService {
         return new SuccessResult();
     }
 
-    @Override
-    public DataResult<Customer> getById(int id) {
-        Optional<Customer> customer = customerDao.findById(id);
-        if(customer.isPresent()) {
-            return new SuccessDataResult<>(customer.get());
-        }
-        return new ErrorDataResult<>("Customer not found");
-    }
-
     private Customer customerMapper(RequestCustomer requestCustomer) {
         Customer customer = new Customer();
         customer.setName(requestCustomer.getName());

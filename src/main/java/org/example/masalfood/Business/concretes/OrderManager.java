@@ -1,16 +1,16 @@
 package org.example.masalfood.Business.concretes;
 
-import org.example.masalfood.Business.models.Requests.RequestOrder;
-import org.example.masalfood.Business.models.Responses.ResponseOrder;
-import org.example.masalfood.Business.models.Responses.ResponseOrderItem;
+import org.example.masalfood.ApiController.CustomerController;
+import org.example.masalfood.Business.models.Requests.RequestCustomer;
 import org.example.masalfood.Business.models.Responses.Result.*;
 import org.example.masalfood.Business.abstracts.OrderService;
 import org.example.masalfood.DataAccess.CustomerDao;
 import org.example.masalfood.DataAccess.OrderDao;
-import org.example.masalfood.DataAccess.OrderItemDao;
+import org.example.masalfood.DataAccess.ProductDao;
 import org.example.masalfood.Entities.Customer;
 import org.example.masalfood.Entities.Order;
-import org.example.masalfood.Entities.OrderItem;
+import org.example.masalfood.Entities.Product;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,46 +19,30 @@ import java.util.*;
 @Service
 public class OrderManager implements OrderService {
     @Autowired
-    private OrderDao orderDao;
+    ModelMapper modelMapper;
     @Autowired
-    private CustomerDao customerDao;
+    OrderDao orderDao;
     @Autowired
-    private OrderItemDao orderItemDao;
+    ProductDao productDao;
+    @Autowired
+    CustomerDao customerDao;
+    @Autowired
+    CustomerController customerController;
+
     @Override
-    public Result create(RequestOrder requestOrder) {
+    public Result addOrder(RequestCustomer requestCustomer, String productId, int quantity) {
         Order order = new Order();
-        Optional<Customer> customer = customerDao.findById(requestOrder.getCustomer_id());
-        if(customer.isEmpty()) {
-            return new ErrorResult("Customer not found");
+        Customer customer = modelMapper.map(requestCustomer, Customer.class);
+        customerDao.save(customer);
+        order.setCustomer(customer);
+        Optional<Product> product = productDao.findById(productId);
+        if (product.isEmpty()) {
+            return new ErrorResult("Product not found");
         }
-        order.setCustomer(customer.get());
+        productDao.save(product.get());
+        order.setProduct(product.get());
+        order.setQuantity(quantity);
         orderDao.save(order);
-        return new SuccessResult("Order created");
-    }
-
-    @Override
-    public DataResult<Set<ResponseOrder>> showAllOrders() {
-        Set<ResponseOrder> responseOrders = new HashSet<>();
-        List<Order> orders = orderDao.findAll();
-        if(orders.isEmpty()) {
-            return new ErrorDataResult<>("No orders found");
-        }
-        for(Order order : orders) {
-            ResponseOrder responseOrder = new ResponseOrder();
-            responseOrder.setOrder_id(order.getId());
-            responseOrder.setCustomer(order.getCustomer());
-            Set<ResponseOrderItem> responseOrderItems = new HashSet<>();
-            assert order.getOrderItems() != null;
-            for(OrderItem orderItem : order.getOrderItems()) {
-                ResponseOrderItem responseOrderItem = new ResponseOrderItem();
-                responseOrderItem.setProductName(orderItem.getProduct().getName());
-                responseOrderItem.setQuantity(orderItem.getQuantity());
-                responseOrderItems.add(responseOrderItem);
-            }
-            responseOrder.setOrder_items(responseOrderItems);
-            responseOrders.add(responseOrder);
-        }
-
-        return new SuccessDataResult<>(responseOrders);
+        return new SuccessResult("Order added");
     }
 }
