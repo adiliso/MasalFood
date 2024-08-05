@@ -1,4 +1,4 @@
-
+# MasalFood Backend Build
 # This workflow will build a Java project with Maven, and cache/restore any dependencies to improve the workflow execution time# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-java-with-maven
 
 # This workflow uses actions that are not certified by GitHub.
@@ -30,7 +30,7 @@ jobs:
     - name: Build with Maven
       run: mvn -B package --file pom.xml -DskipTests
     - name: Copy the artifacts
-      run: mkdir staging && cp testing/*.jar staging
+      run: mkdir staging && cp target/*.jar staging
     - name: Upload the artifacts
       uses: actions/upload-artifact@v4
       with:
