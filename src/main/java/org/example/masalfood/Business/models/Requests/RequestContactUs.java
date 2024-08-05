@@ -6,7 +6,7 @@ import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.example.masalfood.Business.Validation.RealEmail;
+import org.example.masalfood.Business.validation.RealEmail;
 
 @Data
 @AllArgsConstructor

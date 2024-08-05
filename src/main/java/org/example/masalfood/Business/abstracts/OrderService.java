@@ -5,4 +5,6 @@ import org.example.masalfood.Business.models.Responses.Result.Result;
 
 public interface OrderService {
     Result addOrder(RequestCustomer requestCustomer, String productId, int quantity);
+
+    Result deleteOrder(int orderId);
 }
