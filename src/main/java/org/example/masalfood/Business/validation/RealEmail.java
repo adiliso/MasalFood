@@ -1,4 +1,4 @@
-package org.example.masalfood.Business.Validation;
+package org.example.masalfood.Business.validation;
 
 import jakarta.validation.Constraint;
 import jakarta.validation.Payload;

@@ -45,4 +45,14 @@ public class OrderManager implements OrderService {
         orderDao.save(order);
         return new SuccessResult("Order added");
     }
+
+    @Override
+    public Result deleteOrder(int orderId) {
+        Optional<Order> order = orderDao.findById(orderId);
+        if (order.isEmpty()) {
+            return new ErrorResult("Order not found");
+        }
+        orderDao.delete(order.get());
+        return new SuccessResult("Order deleted");
+    }
 }

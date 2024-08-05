@@ -5,6 +5,7 @@ import org.example.masalfood.Business.models.Responses.Result.Result;
 import org.example.masalfood.Business.abstracts.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -18,14 +19,24 @@ import java.util.Map;
 public class OrderController {
     @Autowired
     private OrderService orderService;
+
     @PostMapping("/add-order")
-    public HttpStatus addOrder(@Validated @RequestBody RequestCustomer requestCustomer, @RequestParam String productId,
-                           @RequestParam int quantity) {
+    public ResponseEntity<Result> addOrder(@Validated @RequestBody RequestCustomer requestCustomer, @RequestParam String productId,
+                                           @RequestParam int quantity) {
         Result result = orderService.addOrder(requestCustomer, productId, quantity);
-        if(!result.isSuccess()){
-            return HttpStatus.NOT_FOUND;
+        if (!result.isSuccess()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(result);
         }
-        return HttpStatus.OK;
+        return ResponseEntity.ok(result);
+    }
+
+    @DeleteMapping("/delete-order")
+    public ResponseEntity<Result> deleteOrder(@RequestParam int orderId) {
+        Result result = orderService.deleteOrder(orderId);
+        if (!result.isSuccess()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(result);
+        }
+        return ResponseEntity.ok(result);
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
