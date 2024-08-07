@@ -1,8 +1,12 @@
 package org.example.masalfood.ApiController;
 
-import org.example.masalfood.Business.models.Requests.RequestCustomer;
+import org.example.masalfood.Business.models.Requests.RequestOrder;
+import org.example.masalfood.Business.models.Responses.Result.DataResult;
+import org.example.masalfood.Business.models.Responses.Result.ResponseOrder;
 import org.example.masalfood.Business.models.Responses.Result.Result;
 import org.example.masalfood.Business.abstracts.OrderService;
+import org.example.masalfood.Business.models.Responses.Result.SuccessResult;
+import org.example.masalfood.Entities.Order;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,7 +16,9 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 @RestController
 @RequestMapping("api/orders")
@@ -20,14 +26,10 @@ public class OrderController {
     @Autowired
     private OrderService orderService;
 
-    @PostMapping("/add-order")
-    public ResponseEntity<Result> addOrder(@Validated @RequestBody RequestCustomer requestCustomer, @RequestParam String productId,
-                                           @RequestParam int quantity) {
-        Result result = orderService.addOrder(requestCustomer, productId, quantity);
-        if (!result.isSuccess()) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(result);
-        }
-        return ResponseEntity.ok(result);
+    @PostMapping
+    public Result addOrder(@RequestBody RequestOrder requestOrder) {
+        orderService.addOrder(requestOrder.getCustomer(), requestOrder.getOrderItems());
+        return new SuccessResult();
     }
 
     @DeleteMapping("/delete-order")
@@ -37,6 +39,10 @@ public class OrderController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(result);
         }
         return ResponseEntity.ok(result);
+    }
+    @GetMapping("/get-all-orders")
+    public DataResult<List<ResponseOrder>> getAllOrders() {
+        return orderService.getAllOrders();
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
