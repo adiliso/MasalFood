@@ -27,9 +27,12 @@ public class OrderController {
     private OrderService orderService;
 
     @PostMapping
-    public Result addOrder(@RequestBody RequestOrder requestOrder) {
-        orderService.addOrder(requestOrder.getCustomer(), requestOrder.getOrderItems());
-        return new SuccessResult();
+    public ResponseEntity<Result> addOrder(@Validated @RequestBody RequestOrder requestOrder) {
+        Result result = orderService.addOrder(requestOrder.getCustomer(), requestOrder.getOrderItems());
+        if (!result.isSuccess()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(result);
+        }
+        return ResponseEntity.ok(result);
     }
 
     @DeleteMapping("/delete-order")
