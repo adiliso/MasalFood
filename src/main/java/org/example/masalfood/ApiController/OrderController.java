@@ -26,6 +26,7 @@ public class OrderController {
     @Autowired
     private OrderService orderService;
 
+    @CrossOrigin(origins = "http://10.0.10.97")
     @PostMapping
     public ResponseEntity<Result> addOrder(@Validated @RequestBody RequestOrder requestOrder) {
         Result result = orderService.addOrder(requestOrder.getCustomer(), requestOrder.getOrderItems());
@@ -35,6 +36,7 @@ public class OrderController {
         return ResponseEntity.ok(result);
     }
 
+    @CrossOrigin(origins = "http://10.0.10.97")
     @DeleteMapping("/delete-order")
     public ResponseEntity<Result> deleteOrder(@RequestParam int orderId) {
         Result result = orderService.deleteOrder(orderId);
@@ -43,6 +45,8 @@ public class OrderController {
         }
         return ResponseEntity.ok(result);
     }
+
+    @CrossOrigin(origins = "http://10.0.10.97")
     @GetMapping("/get-all-orders")
     public DataResult<List<ResponseOrder>> getAllOrders() {
         return orderService.getAllOrders();

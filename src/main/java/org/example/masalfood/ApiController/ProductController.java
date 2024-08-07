@@ -14,11 +14,13 @@ import java.util.List;
 public class ProductController {
     private ProductService productService;
 
+    @CrossOrigin(origins = "http://10.0.10.97")
     @GetMapping("/get-all-products")
     public DataResult<List<Product>> getAllProducts() {
         return this.productService.getAllProducts();
     }
 
+    @CrossOrigin(origins = "http://10.0.10.97")
     @GetMapping("/get-featured-products")
     public DataResult<List<Product>> getFeaturedProducts() {
         return productService.showFeaturedProducts();

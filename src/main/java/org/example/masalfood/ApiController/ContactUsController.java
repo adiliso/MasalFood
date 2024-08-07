@@ -26,6 +26,7 @@ public class ContactUsController {
     @Autowired
     ModelMapper modelMapper;
 
+    @CrossOrigin(origins = "http://10.0.10.97")
     @PostMapping("/add")
     public Result add(@Validated @RequestBody RequestContactUs requestContactUs) {
         ContactUs contactUs = modelMapper.map(requestContactUs, ContactUs.class);
