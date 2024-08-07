@@ -27,7 +27,7 @@ public class OrderController {
     private OrderService orderService;
 
     @CrossOrigin(origins = "http://10.0.10.97")
-    @PostMapping
+    @PostMapping("/add-order")
     public ResponseEntity<Result> addOrder(@Validated @RequestBody RequestOrder requestOrder) {
         Result result = orderService.addOrder(requestOrder.getCustomer(), requestOrder.getOrderItems());
         if (!result.isSuccess()) {
