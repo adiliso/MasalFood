@@ -30,7 +30,7 @@ public class ContactUsController {
     public Result add(@Validated @RequestBody RequestContactUs requestContactUs) {
         ContactUs contactUs = modelMapper.map(requestContactUs, ContactUs.class);
         contactUsDao.save(contactUs);
-        return new SuccessResult("Contact added successfully");
+        return new SuccessResult("Message sent successfully");
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)

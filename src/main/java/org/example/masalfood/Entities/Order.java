@@ -1,14 +1,16 @@
 package org.example.masalfood.Entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.example.masalfood.Business.models.Requests.RequestOrderItem;
 
 import java.time.Instant;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 @Data
@@ -19,14 +21,11 @@ public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
     @ManyToOne
     @JoinColumn(name = "customer_id")
     private Customer customer;
-    @ManyToOne
-    @JoinColumn(name = "product_id")
-    private Product product;
-    private int quantity;
-    @Column(name = "created_at")
-    private Instant createdAt = Instant.now();
 
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
+    private List<OrderItem> orderItems;
 }
