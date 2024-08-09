@@ -10,7 +10,7 @@
     </parent>
     <groupId>org.example</groupId>
     <artifactId>MasalFood</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>0.1.0-RELEASE</version>
     <name>MasalFood</name>
     <description>MasalFood</description>
     <packaging>jar</packaging>
