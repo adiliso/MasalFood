@@ -26,7 +26,7 @@ public class CustomerController {
     @Autowired
     ModelMapper modelMapper;
 
-    @CrossOrigin(origins = "http://10.0.10.97")
+    @CrossOrigin(origins = "*")
     @PostMapping("/add")
     public Result add(@Validated @RequestBody RequestCustomer requestCustomer) {
         Customer customer = modelMapper.map(requestCustomer, Customer.class);
